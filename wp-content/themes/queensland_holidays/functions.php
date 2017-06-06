@@ -98,6 +98,15 @@ function queensland_holidays_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Footer Sidebar', 'queensland_holidays' ),
+		'id'            => 'footer-sidebar',
+		'description'   => esc_html__( 'Add widgets here.', 'queensland_holidays' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
 }
 add_action( 'widgets_init', 'queensland_holidays_widgets_init' );
 
@@ -143,3 +152,122 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 require get_template_directory() . '/inc/wp_bootstrap_navwalker.php';
+
+/* 
+ * Helper function to return the theme option value. If no value has been saved, it returns $default.
+ * Needed because options are saved as serialized strings.
+ *
+ * This code allows the theme to work without errors if the Options Framework plugin has been disabled.
+ */
+
+if ( !function_exists( 'of_get_option' ) ) {
+function of_get_option($name, $default = false) {
+	
+	$optionsframework_settings = get_option('optionsframework');
+	
+	// Gets the unique option id
+	$option_name = $optionsframework_settings['id'];
+	
+	if ( get_option($option_name) ) {
+		$options = get_option($option_name);
+	}
+		
+	if ( isset($options[$name]) ) {
+		return $options[$name];
+	} else {
+		return $default;
+	}
+}
+}
+// Register Custom Post Type
+function property_post_type() {
+
+	$labels = array(
+		'name'                  => _x( 'Properties', 'Post Type General Name', 'text_domain' ),
+		'singular_name'         => _x( 'Property', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'             => __( 'Properties', 'text_domain' ),
+		'name_admin_bar'        => __( 'Property', 'text_domain' ),
+		'archives'              => __( 'Property Archives', 'text_domain' ),
+		'attributes'            => __( 'Property Attributes', 'text_domain' ),
+		'parent_item_colon'     => __( 'Parent Property:', 'text_domain' ),
+		'all_items'             => __( 'All Properties', 'text_domain' ),
+		'add_new_item'          => __( 'Add New Property', 'text_domain' ),
+		'add_new'               => __( 'Add New', 'text_domain' ),
+		'new_item'              => __( 'New Property', 'text_domain' ),
+		'edit_item'             => __( 'Edit Property', 'text_domain' ),
+		'update_item'           => __( 'Update Property', 'text_domain' ),
+		'view_item'             => __( 'View Property', 'text_domain' ),
+		'view_items'            => __( 'View Properties', 'text_domain' ),
+		'search_items'          => __( 'Search Property', 'text_domain' ),
+		'not_found'             => __( 'Not found', 'text_domain' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
+		'featured_image'        => __( 'Featured Image', 'text_domain' ),
+		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
+		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
+		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
+		'insert_into_item'      => __( 'Insert into Property', 'text_domain' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this Property', 'text_domain' ),
+		'items_list'            => __( 'Properties list', 'text_domain' ),
+		'items_list_navigation' => __( 'Properties list navigation', 'text_domain' ),
+		'filter_items_list'     => __( 'Filter Properties list', 'text_domain' ),
+	);
+	$args = array(
+		'label'                 => __( 'Property', 'text_domain' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'thumbnail', 'page-attributes', ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,		
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'page',
+	);
+	register_post_type( 'property', $args );
+
+}
+add_action( 'init', 'property_post_type', 0 );
+
+// Register Custom Taxonomy
+function proprty_taxonomy() {
+
+	$labels = array(
+		'name'                       => _x( 'Property Categories', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Property Category', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Propety Category', 'text_domain' ),
+		'all_items'                  => __( 'All Items', 'text_domain' ),
+		'parent_item'                => __( 'Parent Item', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent Item:', 'text_domain' ),
+		'new_item_name'              => __( 'New Item Name', 'text_domain' ),
+		'add_new_item'               => __( 'Add New Item', 'text_domain' ),
+		'edit_item'                  => __( 'Edit Item', 'text_domain' ),
+		'update_item'                => __( 'Update Item', 'text_domain' ),
+		'view_item'                  => __( 'View Item', 'text_domain' ),
+		'separate_items_with_commas' => __( 'Separate items with commas', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Add or remove items', 'text_domain' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
+		'popular_items'              => __( 'Popular Items', 'text_domain' ),
+		'search_items'               => __( 'Search Items', 'text_domain' ),
+		'not_found'                  => __( 'Not Found', 'text_domain' ),
+		'no_terms'                   => __( 'No items', 'text_domain' ),
+		'items_list'                 => __( 'Items list', 'text_domain' ),
+		'items_list_navigation'      => __( 'Items list navigation', 'text_domain' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+	);
+	register_taxonomy( 'property_category', array( 'property' ), $args );
+
+}
+add_action( 'init', 'proprty_taxonomy', 0 );

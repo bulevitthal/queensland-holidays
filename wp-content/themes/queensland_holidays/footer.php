@@ -12,15 +12,20 @@
 ?>
 
 		</div><!-- #content -->
-	</div><!– #page –>
-</div><!– .container –>
+	</div><!-- #page -->
+</div><!-- .container -->
+<div class="container-full" id="footer-menu">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<?php dynamic_sidebar( 'footer-sidebar' ); ?>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="container">
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'queensland_holidays' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'queensland_holidays' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'queensland_holidays' ), 'queensland_holidays', '<a href="https://automattic.com/" rel="designer">Underscores.me</a>' ); ?>
-		</div><!-- .site-info -->
+		<p>Copyright © <?php echo of_get_option('copyright_text'); ?>: <?php the_date('Y'); ?> All Rights Reserved.</p>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
