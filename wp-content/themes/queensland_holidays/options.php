@@ -263,6 +263,70 @@ function optionsframework_options() {
 		'type' => 'checkbox');*/
 
 	$options[] = array(
+		'name' => __('Home Page Settings', 'options_check'),
+		'type' => 'heading');
+
+	$options[] = array(
+		'name' => __('Featured Section Image 1', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-image-1',
+		'type' => 'upload');
+
+	$options[] = array(
+		'name' => __('Featured Section title 1', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-title-1',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Featured Section Speciality 1', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-speciality-1',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Featured Section Image 2', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-image-2',
+		'type' => 'upload');
+
+	$options[] = array(
+		'name' => __('Featured Section title 2', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-title-2',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Featured Section Speciality 2', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-speciality-2',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Featured Section Image 3', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-image-3',
+		'type' => 'upload');
+
+	$options[] = array(
+		'name' => __('Featured Section title 3', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-title-3',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Featured Section Speciality 3', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'feature-speciality-3',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
 		'name' => __('Social Profiles', 'options_check'),
 		'type' => 'heading');
 
@@ -306,12 +370,32 @@ function optionsframework_options() {
 	$options[] = array(
 		'name' => __('Advanced Settings', 'options_check'),
 		'type' => 'heading');
+
 	$options[] = array(
 		'name' => __('Select a Login page', 'options_check'),
 		'desc' => __('Login page url', 'options_check'),
 		'id' => 'login_page_url',
 		'type' => 'select',
 		'options' => $options_pages);
+
+	$options[] = array(
+		'name' => __('Sun Logo', 'options_check'),
+		'desc' => __('Sun logo.', 'options_check'),
+		'id' => 'sun_logo',
+		'type' => 'upload');
+
+	$options[] = array(
+		'name' => __('Web URL', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'web_url',
+		'std' => '',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Flag', 'options_check'),
+		'desc' => __('Australia Flag.', 'options_check'),
+		'id' => 'aus_flag',
+		'type' => 'upload');
 	/* $options[] = array(
 		'name' => __('Check to Show a Hidden Text Input', 'options_check'),
 		'desc' => __('Click here and see what happens.', 'options_check'),

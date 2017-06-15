@@ -311,3 +311,5 @@ function property_location() {
 
 }
 add_action( 'init', 'property_location', 0 );
+
+add_image_size( 'property_thumbnail', 280, 220, true );

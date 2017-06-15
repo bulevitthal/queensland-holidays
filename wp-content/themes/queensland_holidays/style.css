@@ -1155,16 +1155,12 @@ body .navbar-inverse .navbar-nav>.open>a, body .navbar-inverse .navbar-nav>.open
 	background: transparent;
 	color: #f70000;
 }
-#footer-gallery .foot-gal-img{
-    padding: 5px;
-    float: left;
-}
 #footer-gallery{
 	margin-left: -5px;
     margin-right: -5px;
 }
 #footer-gallery .foot-gal-img {
-    padding: 5px 4px 5px 5px;
+    padding: 0px 4px 10px 5px;
     float: left;
 }
 #footer-gallery .foot-gal-img img{
@@ -1179,4 +1175,55 @@ body .navbar-inverse .navbar-nav>.open>a, body .navbar-inverse .navbar-nav>.open
     text-align: center;
     margin-bottom: 80px;
     margin-top: 40px;
+}
+#sun-flag{
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+#web_url h3{
+    color: #00a2db;
+    font-size: 30px;
+    line-height: 21px;
+    margin-top: 57px;
+    text-align: center;
+}
+#aus_flag img{
+    margin-top: 35px;
+    margin-left: 25px;
+}
+#featured-section .feature-section{
+	position: relative;
+}
+#featured-section .feature-section .feature-inner{
+	position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background: url(./img/feature-back.png) repeat-x;
+    min-height: 195px;
+    background-position: 0px 30px;
+    background-color: transparent;
+    padding-top: 68px;
+}
+#featured-section .feature-section .feature-inner h2{
+    padding-left: 10px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 21px;
+}
+#featured-section .feature-section .feature-inner li{
+color: #fff;
+    font-size: 15px;
+    line-height: 21px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    list-style-type: none;
+    width: 50%;
+    float: left;
+    padding-left: 16px;
+    background: url(./img/list-mark.png) no-repeat;
+    background-position: left 5px;
+}
+#featured-section .feature-section .feature-inner ul{
+	margin: 0px;
+	padding:0 0 0 18px;
 }
