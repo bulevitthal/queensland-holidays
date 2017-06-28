@@ -14,41 +14,134 @@
 			the_content();
 		?>
 	</div><!-- .entry-content -->
+	<div class="row" id="prop_slider">
+		<div class="col-md-9 slider_left">
+			<div id="carousel-home" class="carousel slide" data-ride="carousel">
+			  <!-- Indicators -->
+			  	<ol class="carousel-indicators">
+		  		<?php 
+					$slider_img = miu_get_images();
+					$arr_count = count($slider_img);
+
+					for ($i=0; $i < $arr_count; $i++) { 
+						if ($i==0) { ?>
+							<li data-target="#carousel-home" data-slide-to="<?php echo $i; ?>" class="active"></li>
+						<?php }else{ ?>
+							<li data-target="#carousel-home" data-slide-to="<?php echo $i; ?>"></li>
+						<?php }
+						?>
+					 	
+				<?php } 
+				?>
+			  	</ol>
+
+			  <!-- Wrapper for slides -->
+			 	<div class="carousel-inner" role="listbox">
+			 		<?php 
+					$slider_img = miu_get_images();
+					$i = 0;
+					foreach ($slider_img as $key => $value) { 
+					?>
+					<div class="item <?php if($i==0){echo 'active';} ?>">
+						<img src="<?php echo $value; ?>" alt="<?php echo 'slide-'.$i; ?>" />
+					</div>
+					<?php 
+					$i++;
+					}
+					?>
+		    	</div>		
+		  	</div>
+		</div>
+		<div class="col-md-3 slider_right">
+			<div class="banner-right">
+				<?php  $attachment_id = get_field('right_banner_image'); 
+				$custom_thumb = wp_get_attachment_image_src( $attachment_id,"right_banner" ); ?>
+				<img src="<?php echo $custom_thumb[0]; ?>" />
+				<div class="banner-list">
+					<?php echo get_field('right_banner_text'); ?>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row" id="featured_property">
 		<div class="col-md-12">
 			<h2>Your exciting holiday memories start here</h2>
 		</div>
 		<?php 
+			// WP_Query arguments
 			$args = array(
-				'post_type' => 'post',
-				'tax_query' => array(
-					'relation' => 'AND',
+				'post_type'              => array( 'property' ),
+				'post_status'            => array( 'publish' ),
+				'nopaging'               => true,
+				'posts_per_page'         => '4',
+				'order'                  => 'DESC',
+				'orderby'                => 'date',
+				'meta_query' => array(
 					array(
-						'taxonomy' => 'movie_genre',
-						'field'    => 'slug',
-						'terms'    => array( 'action', 'comedy' ),
-					),
-					array(
-						'taxonomy' => 'actor',
-						'field'    => 'term_id',
-						'terms'    => array( 103, 115, 206 ),
-						'operator' => 'NOT IN',
-					),
-				),
+						'key' => 'is_featured',
+						'compare' => '==',
+						'value' => '1'
+					)
+				)
 			);
+
+			// The Query
 			$the_query = new WP_Query( $args );
 
 			// The Loop
 			if ( $the_query->have_posts() ) {
-				echo '<ul>';
 				while ( $the_query->have_posts() ) {
-					$the_query->the_post();
-					echo '<li>' . get_the_title() . '</li>';
-				}
-				echo '</ul>';
-				/* Restore original Post Data */
-				wp_reset_postdata();
+					$the_query->the_post(); ?>
+					<div class="col-md-3 featured-property">
+						<div class='property_img'>
+							<?php the_post_thumbnail('property_thumbnail'); ?>
+						</div>
+						<div class="property_desc">
+							<p class="property_title"><?php echo get_the_title(); ?></p>
+							<?php 
+								$terms = get_the_terms( get_the_ID(), 'property_category' );
+                         		if ( $terms && ! is_wp_error( $terms ) ) : 
+								 
+								    $property_category = array();
+								 
+								    foreach ( $terms as $term ) {
+								        $property_category[] = $term->name;
+								    }
+								                         
+								    $property_cat = join( ", ", $property_category );
+								    ?>
+ 
+								    <p class="property_cat">
+								        <?php echo $property_cat; ?>
+								    </p>
+							<?php endif; ?>
+							<?php 
+								$terms1 = get_the_terms( get_the_ID(), 'property_location' );
+                         		if ( $terms1 && ! is_wp_error( $terms1 ) ) : 
+								 
+								    $property_location = array();
+								 
+								    foreach ( $terms1 as $term1 ) {
+								        $property_location[] = $term1->name;
+								    }
+								                         
+								    $property_loc = join( ", ", $property_location );
+								    ?>
+ 
+								    <p class="property_loc">
+								        <?php echo $property_loc; ?>
+								    </p>
+							<?php endif; ?>
+    						<p class="property_link"><a href="<?php echo get_the_permalink(); ?>">View</a></p>	
+						</div>
+					</div>
+			<?php }
+			} else {
+				// no posts found
 			}
+
+			// Restore original Post Data
+			wp_reset_postdata();
 		?>
 	</div>
 	<div class="row">

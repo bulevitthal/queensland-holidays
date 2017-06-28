@@ -117,6 +117,7 @@ function queensland_holidays_scripts() {
 	wp_enqueue_style( 'queensland_holidays-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'queensland_holidays-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'queensland_holidays-custom-js', get_template_directory_uri() . '/js/custom.js', array(), '', true );
 
 	wp_enqueue_script( 'queensland_holidays-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
@@ -313,3 +314,5 @@ function property_location() {
 add_action( 'init', 'property_location', 0 );
 
 add_image_size( 'property_thumbnail', 280, 220, true );
+add_image_size( 'property_slider', 825, 280, true );
+add_image_size( 'left_banner', 330, 280, true );
