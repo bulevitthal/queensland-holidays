@@ -1327,6 +1327,10 @@ color: #fff;
 	width: 10px !important;
 	height: 10px !important;
 }
+body .navbar-inverse .navbar-nav>.active>a, body .navbar-inverse .navbar-nav>.active>a:focus, body .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #f70000;
+    background-color: transparent;
+}
 
 @media (min-width: 992px){
 	#featured_property .featured-property {

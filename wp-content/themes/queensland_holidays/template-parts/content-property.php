@@ -8,9 +8,8 @@
  */
 
 ?>
-
 	<div class="entry-content">
-		<?php echo get_field('content'); ?>
+		<h2><?php echo get_the_title(); ?></h2>
 	</div><!-- .entry-content -->
 	<div class="row" id="prop_slider">
 		<div class="col-md-9 slider_left">
@@ -49,7 +48,7 @@
 					$i++;
 					}
 					?>
-		    	</div>			
+		    	</div>		
 		  	</div>
 		</div>
 		<div class="col-md-3 slider_right">
@@ -65,24 +64,35 @@
 	</div>
 	<div class="row" id="featured_property">
 		<div class="col-md-12">
-			<h2>Your exciting holiday memories start here</h2>
+			<h2><?php 
+			$location = get_field('suburb');
+			$term = get_term_by('term_id', $location, 'property_location');
+			echo $term->name;
+			?></h2>
 		</div>
 		<?php 
 			// WP_Query arguments
+			$prop_cat = get_field('archive_for_property_categories');
 			$args = array(
 				'post_type'              => array( 'property' ),
 				'post_status'            => array( 'publish' ),
 				'nopaging'               => true,
-				'posts_per_page'         => '4',
+				'posts_per_page'         => '-1',
 				'order'                  => 'DESC',
 				'orderby'                => 'date',
-				'meta_query' => array(
+				'tax_query' => array(
+					'relation' => 'AND',
 					array(
-						'key' => 'is_featured',
-						'compare' => '==',
-						'value' => '1'
-					)
-				)
+						'taxonomy' => 'property_location',
+						'field'    => 'term_id',
+						'terms'    => $location,
+					),
+					array(
+						'taxonomy' => 'property_category',
+						'field'    => 'term_id',
+						'terms'    => $prop_cat,
+					),
+				),
 			);
 
 			// The Query
@@ -146,62 +156,6 @@
 	</div>
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<div class="row" id="featured-section">
-				<div class="col-md-4">
-					<div class="feature-section">
-						<img src="<?php echo of_get_option('feature-image-1'); ?>" alt="feature 1">
-						<div class="feature-inner">
-							<h2><?php echo of_get_option('feature-title-1'); ?></h2>
-							<ul>
-								<?php 
-								$specialities = of_get_option('feature-speciality-1');
-								if ($specialities) {
-									$single_spe = explode(',', $specialities);
-									foreach ($single_spe as $key => $value) {
-										echo '<li>'.$value.'</li>';
-									}
-								} ?>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="feature-section">
-						<img src="<?php echo of_get_option('feature-image-2'); ?>" alt="feature 2">
-						<div class="feature-inner">
-							<h2><?php echo of_get_option('feature-title-2'); ?></h2>
-							<ul>
-								<?php 
-								$specialities = of_get_option('feature-speciality-2');
-								if ($specialities) {
-									$single_spe = explode(',', $specialities);
-									foreach ($single_spe as $key => $value) {
-										echo '<li>'.$value.'</li>';
-									}
-								} ?>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="feature-section">
-						<img src="<?php echo of_get_option('feature-image-3'); ?>" alt="feature 3">
-						<div class="feature-inner">
-							<h2><?php echo of_get_option('feature-title-3'); ?></h2>
-							<ul>
-								<?php 
-								$specialities = of_get_option('feature-speciality-3');
-								if ($specialities) {
-									$single_spe = explode(',', $specialities);
-									foreach ($single_spe as $key => $value) {
-										echo '<li>'.$value.'</li>';
-									}
-								} ?>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="row" id="sun-flag">
 				<div class="col-md-3" id="sun-logo">
 					<img src="<?php echo of_get_option('sun_logo'); ?>" alt='sun' />

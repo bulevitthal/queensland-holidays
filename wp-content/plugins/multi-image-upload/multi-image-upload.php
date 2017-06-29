@@ -96,7 +96,7 @@ class Multi_Image_Uploader
         {
             add_meta_box(
                     'multi_image_upload_meta_box'
-                    , __('Upload Multiple Images', 'miu_textdomain')
+                    , __('Upload Slider Images', 'miu_textdomain')
                     , array($this, 'render_meta_box_content')
                     , $post_type
                     , 'advanced'
