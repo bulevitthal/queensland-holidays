@@ -1174,8 +1174,28 @@ body .navbar-inverse .navbar-nav>.open>a, body .navbar-inverse .navbar-nav>.open
     color: rgb(0, 162, 219);
     line-height: 28px;
     text-align: center;
-    margin-bottom: 80px;
-    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-top: 100px;
+}
+.home #footer-gallery-heading h2{
+	margin-top: 40px;
+	margin-bottom: 80px;
+}
+#footer-gallery-text{
+	font-size: 16px;
+	line-height: 24px;
+	font-family: 'Open Sans', sans-serif;
+	    color: #565856;
+}
+#footer-gallery-text p{
+	margin-bottom: 25px;
+}
+#footer-gallery-text h2{
+	font-size: 30px;
+	color: #00a2db;
+    line-height: 48px;
+    margin-top: 37px;
+    margin-bottom: 90px;
 }
 #sun-flag{
 	margin-bottom: 30px;

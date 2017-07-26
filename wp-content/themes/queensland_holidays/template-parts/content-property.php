@@ -99,32 +99,16 @@
 			$the_query = new WP_Query( $args );
 
 			// The Loop
-			if ( $the_query->have_posts() ) {
-				while ( $the_query->have_posts() ) {
+			if ( $the_query->have_posts() ) { ?>
+			<div class="owl-carousel col-md-12"> 
+				<?php while ( $the_query->have_posts() ) {
 					$the_query->the_post(); ?>
-					<div class="col-md-3 featured-property">
+					<div class="featured-property">
 						<div class='property_img'>
 							<?php the_post_thumbnail('property_thumbnail'); ?>
 						</div>
 						<div class="property_desc">
 							<p class="property_title"><?php echo get_the_title(); ?></p>
-							<?php 
-								$terms = get_the_terms( get_the_ID(), 'property_category' );
-                         		if ( $terms && ! is_wp_error( $terms ) ) : 
-								 
-								    $property_category = array();
-								 
-								    foreach ( $terms as $term ) {
-								        $property_category[] = $term->name;
-								    }
-								                         
-								    $property_cat = join( ", ", $property_category );
-								    ?>
- 
-								    <p class="property_cat">
-								        <?php echo $property_cat; ?>
-								    </p>
-							<?php endif; ?>
 							<?php 
 								$terms1 = get_the_terms( get_the_ID(), 'property_location' );
                          		if ( $terms1 && ! is_wp_error( $terms1 ) ) : 
@@ -136,17 +120,32 @@
 								    }
 								                         
 								    $property_loc = join( ", ", $property_location );
-								    ?>
+						    ?>
  
-								    <p class="property_loc">
+								    <p class="property_cat">
 								        <?php echo $property_loc; ?>
 								    </p>
 							<?php endif; ?>
-    						<p class="property_link"><a href="<?php echo get_the_permalink(); ?>">View</a></p>	
+							
+ 								<?php 
+								$rate = get_field('rate');
+                         		if ( $rate ) :  ?>
+								    <p class="property_loc">
+								        <?php echo 'From $'.$rate. ' / night'; ?>
+								    </p>
+							<?php endif; ?>
+							<?php $link = get_field('link'); ?>
+							<?php if($link){ ?>
+    							<p class="property_link"><a target="_blank" href="<?php echo $link; ?>">View</a></p>	
+    						<?php }else{ ?>
+    							<p class="property_link"><a href="<?php echo get_the_permalink(); ?>">View</a></p>	
+    						<?php } ?>
 						</div>
 					</div>
-			<?php }
-			} else {
+			<?php } ?>
+			</div>
+			
+			<?php } else {
 				// no posts found
 			}
 
@@ -178,7 +177,10 @@
 				<?php } ?>
 			</div>
 			<div id="footer-gallery-heading">
-				<h2><?php echo get_field('gallery_heading_default'); ?></h2>
+				<h2><?php echo get_field('gallery_heading'); ?></h2>
+			</div>
+			<div id="footer-gallery-text">
+				<?php echo get_field('after_gallery_section'); ?>
 			</div>
 		</div>
 	</div>		
