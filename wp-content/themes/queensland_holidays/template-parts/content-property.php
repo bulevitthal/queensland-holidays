@@ -62,6 +62,18 @@
 			</div>
 		</div>
 	</div>
+	<div class="row" id="map-search">
+		<div class="col-md-7">
+			<form action="#" method="post">
+				<input type="search" name="sname" placeholder="Enter Suburb or Post Code" />
+				<input type="checkbox" name="scheck" value="surround"> <label for="scheck">Surrounding Suburbs</label>
+				<a class="map-button" data-toggle="modal" data-target="#mapsearchModal"> Search </a> 
+			</form>
+		</div>
+		<div class="col-md-5">
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#mapModal">View Map</button>
+		</div>
+	</div>
 	<div class="row" id="featured_property">
 		<div class="col-md-12">
 			<h2><?php 
@@ -71,7 +83,7 @@
 			?></h2>
 		</div>
 		<?php 
-			// WP_Query arguments
+			
 			$prop_cat = get_field('archive_for_property_categories');
 			$args = array(
 				'post_type'              => array( 'property' ),
@@ -100,7 +112,7 @@
 
 			// The Loop
 			if ( $the_query->have_posts() ) { ?>
-			<div class="owl-carousel col-md-12"> 
+			<div class="owl-carousel col-md-12 owl-theme" id="carousel-property"> 
 				<?php while ( $the_query->have_posts() ) {
 					$the_query->the_post(); ?>
 					<div class="featured-property">
@@ -143,6 +155,7 @@
 						</div>
 					</div>
 			<?php } ?>
+			
 			</div>
 			
 			<?php } else {
@@ -184,3 +197,29 @@
 			</div>
 		</div>
 	</div>		
+	<?php vit_property_map($prop_cat, $location); ?>
+	<?php vit_search_property_map($prop_cat, $postcode); ?>
+	<div id="mapModal" class="modal fade" role="dialog">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	     		<div class="modal-body">
+	     			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        		<div id="map_wrapper">
+			    		<div id="map_canvas" class="mapping" style="width: 100%;height:500px;"></div>
+					</div>
+	      		</div>
+	     	</div>
+		</div>
+	</div>
+	<div id="mapsearchModal" class="modal fade" role="dialog">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	     		<div class="modal-body">
+	     			<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        		<div id="map_wrapper">
+			    		<div id="map_search_canvas" class="mapping" style="width: 100%;height:500px;"></div>
+					</div>
+	      		</div>
+	     	</div>
+		</div>
+	</div>

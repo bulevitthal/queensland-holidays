@@ -120,6 +120,7 @@ function queensland_holidays_scripts() {
 
 	wp_enqueue_script( 'queensland_holidays-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 	wp_enqueue_script( 'queensland_holidays-owl-js', get_template_directory_uri() . '/js/owl.carousel.js', array(), '', true );
+	wp_enqueue_script( 'queensland_holidays-owl-navigation-js', get_template_directory_uri() . '/js/owl.navigation.js', array(), '', true );
 	wp_enqueue_script( 'queensland_holidays-custom-js', get_template_directory_uri() . '/js/custom.js', array(), '', true );
 
 	wp_enqueue_script( 'queensland_holidays-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
@@ -349,3 +350,274 @@ function pn_get_attachment_id_from_url( $attachment_url = '' ) {
 	return $attachment_id;
 }
 
+function vit_property_map($prop_cat, $location){
+	if($location){
+		$args_map = array(
+			'post_type'              => array( 'property' ),
+			'post_status'            => array( 'publish' ),
+			'nopaging'               => true,
+			'posts_per_page'         => '-1',
+			'order'                  => 'DESC',
+			'orderby'                => 'date',
+			'tax_query' => array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'property_location',
+					'field'    => 'term_id',
+					'terms'    => $location,
+				),
+				array(
+					'taxonomy' => 'property_category',
+					'field'    => 'term_id',
+					'terms'    => $prop_cat,
+				),
+			),
+		);
+	}else{
+		$args_map = array(
+			'post_type'              => array( 'property' ),
+			'post_status'            => array( 'publish' ),
+			'nopaging'               => true,
+			'posts_per_page'         => '-1',
+			'order'                  => 'DESC',
+			'orderby'                => 'date',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'property_category',
+					'field'    => 'term_id',
+					'terms'    => $prop_cat,
+				),
+			),
+		);	
+	}
+	
+
+	// The Query
+	$the_query = new WP_Query( $args_map );
+
+	// The Loop
+	$main_map_arr = array();
+	if ( $the_query->have_posts() ) {
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post(); 
+			$address = get_field('street_address').', '.get_field('suburb').', Queensland, Australia '.get_field('post_code');
+			$Address = urlencode($address);
+		  	$request_url = "https://maps.googleapis.com/maps/api/geocode/xml?address=".$Address."&key=".of_get_option('map_api');
+		  	$xml = simplexml_load_file($request_url) or die("url not loading");
+		  	$status = $xml->status;
+		  	if ($status=="OK") {
+		  		$single_map_arr = array();
+		      	$Lat = $xml->result->geometry->location->lat;
+		      	$Lon = $xml->result->geometry->location->lng;
+
+		      	$Lat1 = "$Lat";
+		      	$Lon1 = "$Lon";
+		      	//print_r($LatLng);
+		      	//exit();
+		      	$single_map_arr[] = $address;
+		      	$single_map_arr[] = $Lat1;
+		      	$single_map_arr[] = $Lon1;
+	  		} 
+	  		$main_map_arr[] = $single_map_arr;
+	  		
+	  		$main_infoWindow[] = array('<div class="info_content"><img src="'.get_the_post_thumbnail_url(get_the_ID(),'property_thumbnail').'"><h3>'.get_the_title().'</h3><p>'.$address.'</p></div>');
+	  		$title_infoWindow[] = array('<div class="info_content"><h3>'.get_the_title().'</h3></div>');
+	  	} 
+
+	  	?>
+	  	<script type="text/javascript">
+	  		jQuery(function($) {
+			    // Asynchronously Load the map API 
+			    var script = document.createElement('script');
+			    script.src = "//maps.googleapis.com/maps/api/js?callback=initialize&key=<?php echo of_get_option('map_api'); ?>";
+			    document.body.appendChild(script);
+			});
+
+			function initialize() {
+			    var map;
+			    var bounds = new google.maps.LatLngBounds();
+			    var mapOptions = {
+			        mapTypeId: 'roadmap'
+			    };
+			                    
+			    // Display a map on the page
+			    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+			    map.setTilt(45);
+			        
+			    // Multiple Markers
+			    var markers = <?php echo json_encode($main_map_arr); ?>;
+			    //console.log(marker);
+			                        
+			    // Info Window Content
+			    var infoWindowContent = <?php echo json_encode($main_infoWindow); ?>;
+			    var infoWindowtitle = <?php echo json_encode($title_infoWindow); ?>;
+			        
+			    // Display multiple markers on a map
+			    var infoWindow = new google.maps.InfoWindow(), marker, i;
+			    
+			    // Loop through our array of markers & place each one on the map  
+			    for( i = 0; i < markers.length; i++ ) {
+			    	//alert(markers[i][2]);
+			        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+			        bounds.extend(position);
+			        marker = new google.maps.Marker({
+			            position: position,
+			            map: map,
+			            title: markers[i][0]
+			        });
+			        
+			        // Allow each marker to have an info window    
+			        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			            return function() {
+			                infoWindow.setContent(infoWindowContent[i][0]);
+			                infoWindow.open(map, marker);
+			            }
+			        })(marker, i));
+			         google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+			            return function() {
+			                infoWindow.setContent(infoWindowtitle[i][0]);
+			                infoWindow.open(map, marker);
+			            }
+			        })(marker, i));
+
+			        // Automatically center the map fitting all markers on the screen
+			        map.fitBounds(bounds);
+			    }
+
+			    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+			    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+			        this.setZoom(8);
+			        google.maps.event.removeListener(boundsListener);
+			    });
+			    
+			}
+	  	</script>
+  	<?php }
+  	wp_reset_postdata();
+}
+
+function vit_search_property_map($prop_cat, $postcode){
+	
+	$args_map = array(
+		'post_type'              => array( 'property' ),
+		'post_status'            => array( 'publish' ),
+		'nopaging'               => true,
+		'posts_per_page'         => '-1',
+		'order'                  => 'DESC',
+		'orderby'                => 'date',
+		'meta_key'		         => 'post_code',
+		'meta_value'	         =>  $postcode,
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'property_category',
+				'field'    => 'term_id',
+				'terms'    => $prop_cat,
+			),
+		),
+	);	
+
+	
+
+	// The Query
+	$the_query = new WP_Query( $args_map );
+
+	// The Loop
+	$main_map_arr = array();
+	if ( $the_query->have_posts() ) {
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post(); 
+			$address = get_field('street_address').', '.get_field('suburb').', Queensland, Australia '.get_field('post_code');
+			$Address = urlencode($address);
+		  	$request_url = "https://maps.googleapis.com/maps/api/geocode/xml?address=".$Address."&key=".of_get_option('map_api');
+		  	$xml = simplexml_load_file($request_url) or die("url not loading");
+		  	$status = $xml->status;
+		  	if ($status=="OK") {
+		  		$single_map_arr = array();
+		      	$Lat = $xml->result->geometry->location->lat;
+		      	$Lon = $xml->result->geometry->location->lng;
+
+		      	$Lat1 = "$Lat";
+		      	$Lon1 = "$Lon";
+		      	//print_r($LatLng);
+		      	//exit();
+		      	$single_map_arr[] = $address;
+		      	$single_map_arr[] = $Lat1;
+		      	$single_map_arr[] = $Lon1;
+	  		} 
+	  		$main_map_arr[] = $single_map_arr;
+	  		
+	  		$main_infoWindow[] = array('<div class="info_content"><img src="'.get_the_post_thumbnail_url(get_the_ID(),'property_thumbnail').'"><h3>'.get_the_title().'</h3><p>'.$address.'</p></div>');
+	  		$title_infoWindow[] = array('<div class="info_content"><h3>'.get_the_title().'</h3></div>');
+	  	} 
+
+	  	?>
+	  	<script type="text/javascript">
+	  		jQuery(function($) {
+			    // Asynchronously Load the map API 
+			    var script = document.createElement('script');
+			    script.src = "//maps.googleapis.com/maps/api/js?callback=initialize&key=<?php echo of_get_option('map_api'); ?>";
+			    document.body.appendChild(script);
+			});
+
+			function initialize() {
+			    var map;
+			    var bounds = new google.maps.LatLngBounds();
+			    var mapOptions = {
+			        mapTypeId: 'roadmap'
+			    };
+			                    
+			    // Display a map on the page
+			    map = new google.maps.Map(document.getElementById("map_search_canvas"), mapOptions);
+			    map.setTilt(45);
+			        
+			    // Multiple Markers
+			    var markers = <?php echo json_encode($main_map_arr); ?>;
+			    //console.log(marker);
+			                        
+			    // Info Window Content
+			    var infoWindowContent = <?php echo json_encode($main_infoWindow); ?>;
+			    var infoWindowtitle = <?php echo json_encode($title_infoWindow); ?>;
+			        
+			    // Display multiple markers on a map
+			    var infoWindow = new google.maps.InfoWindow(), marker, i;
+			    
+			    // Loop through our array of markers & place each one on the map  
+			    for( i = 0; i < markers.length; i++ ) {
+			    	//alert(markers[i][2]);
+			        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+			        bounds.extend(position);
+			        marker = new google.maps.Marker({
+			            position: position,
+			            map: map,
+			            title: markers[i][0]
+			        });
+			        
+			        // Allow each marker to have an info window    
+			        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			            return function() {
+			                infoWindow.setContent(infoWindowContent[i][0]);
+			                infoWindow.open(map, marker);
+			            }
+			        })(marker, i));
+			         google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+			            return function() {
+			                infoWindow.setContent(infoWindowtitle[i][0]);
+			                infoWindow.open(map, marker);
+			            }
+			        })(marker, i));
+
+			        // Automatically center the map fitting all markers on the screen
+			        map.fitBounds(bounds);
+			    }
+
+			    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+			    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+			        this.setZoom(8);
+			        google.maps.event.removeListener(boundsListener);
+			    });
+			    
+			}
+	  	</script>
+  	<?php }
+  	wp_reset_postdata();
+}

@@ -396,6 +396,14 @@ function optionsframework_options() {
 		'desc' => __('Australia Flag.', 'options_check'),
 		'id' => 'aus_flag',
 		'type' => 'upload');
+
+	$options[] = array(
+		'name' => __('Google Map API key', 'options_check'),
+		'desc' => __('', 'options_check'),
+		'id' => 'map_api',
+		'std' => '',
+		'type' => 'text');
+
 	/* $options[] = array(
 		'name' => __('Check to Show a Hidden Text Input', 'options_check'),
 		'desc' => __('Click here and see what happens.', 'options_check'),

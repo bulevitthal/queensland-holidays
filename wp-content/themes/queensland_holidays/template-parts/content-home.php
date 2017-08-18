@@ -145,6 +145,9 @@
 		?>
 	</div>
 	<div class="row">
+		<div class="col-md-12 center-headline">
+			<h2>Fly with the Airline that knows Australia Best</h2>
+		</div>
 		<div class="col-md-10 col-md-offset-1">
 			<div class="row" id="featured-section">
 				<div class="col-md-4">
