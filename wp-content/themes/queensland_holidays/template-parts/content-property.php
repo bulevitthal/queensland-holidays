@@ -67,7 +67,7 @@
 			<form action="#" method="post">
 				<input type="search" name="sname" placeholder="Enter Suburb or Post Code" />
 				<input type="checkbox" name="scheck" value="surround"> <label for="scheck">Surrounding Suburbs</label>
-				<a class="map-button" data-toggle="modal" data-target="#mapsearchModal"> Search </a> 
+				<a class="map-button"> Search </a> 
 			</form>
 		</div>
 		<div class="col-md-5">
@@ -198,7 +198,6 @@
 		</div>
 	</div>		
 	<?php vit_property_map($prop_cat, $location); ?>
-	<?php vit_search_property_map($prop_cat, $postcode); ?>
 	<div id="mapModal" class="modal fade" role="dialog">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -206,18 +205,6 @@
 	     			<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        		<div id="map_wrapper">
 			    		<div id="map_canvas" class="mapping" style="width: 100%;height:500px;"></div>
-					</div>
-	      		</div>
-	     	</div>
-		</div>
-	</div>
-	<div id="mapsearchModal" class="modal fade" role="dialog">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
-	     		<div class="modal-body">
-	     			<button type="button" class="close" data-dismiss="modal">&times;</button>
-	        		<div id="map_wrapper">
-			    		<div id="map_search_canvas" class="mapping" style="width: 100%;height:500px;"></div>
 					</div>
 	      		</div>
 	     	</div>

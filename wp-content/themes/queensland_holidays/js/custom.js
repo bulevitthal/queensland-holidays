@@ -56,11 +56,6 @@ $(document).ready(function() {
         var post_code = $('#map-search input[type="search"]').val();
         
     });
-    $('#mapseachModal').on('shown.bs.modal', function () {
-        google.maps.event.trigger(map_search_canvas, "resize");
-            //alert('testjkdsf');
-        rescale();
-    });
 });
 function rescale(){
     var size = {width: $(window).width() , height: $(window).height() }
