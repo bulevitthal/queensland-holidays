@@ -117,7 +117,9 @@ function queensland_holidays_scripts() {
 	wp_enqueue_style( 'queensland_holidays-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'queensland_holidays-owl-style', get_template_directory_uri() . '/css/owl.carousel.min.css' );
 	wp_enqueue_style( 'queensland_holidays-owl-theme-default', get_template_directory_uri() . '/css/owl.theme.default.min.css' );
+	wp_enqueue_style( 'queensland_holidays-prettyPhoto', get_template_directory_uri() . '/css/prettyPhoto.css' );
 
+	wp_enqueue_script( 'queensland_holidays-prettyjs', get_template_directory_uri() . '/js/jquery.prettyPhoto.js', array(), '', true );
 	wp_enqueue_script( 'queensland_holidays-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 	wp_enqueue_script( 'queensland_holidays-owl-js', get_template_directory_uri() . '/js/owl.carousel.js', array(), '', true );
 	wp_enqueue_script( 'queensland_holidays-owl-navigation-js', get_template_directory_uri() . '/js/owl.navigation.js', array(), '', true );

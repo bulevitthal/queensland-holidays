@@ -1,7 +1,9 @@
-$( document ).ready(function() {
+jQuery( document ).ready(function() {
     $('.carousel').carousel({
 	  interval: 10000
-	})
+	});
+ console.log(true);
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
 });
 $(document).ready(function(){
 
@@ -39,6 +41,7 @@ $(document).ready(function(){
         $(this).text(index + 1);
     });
 
+
 });
 //$('#mapModal').on('shown.bs.modal', function () {
         //google.maps.event.trigger(map_canvas, "resize");
@@ -63,8 +66,8 @@ function rescale(){
     var offset = 20;
     var offsetBody = 150;
 
-    $('#mapModal').css('height', size.height - offset );
-    $('.modal-body').css('height', size.height - (offset + offsetBody));
+    /*$('#mapModal').css('height', size.height - offset );
+    $('.modal-body').css('height', size.height - (offset + offsetBody));*/
     $('#mapModal').css('top', 0);
 }
 $(window).bind("resize", rescale);

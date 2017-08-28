@@ -612,11 +612,11 @@ a:active {
 }
 #mapModal .modal-dialog{
 	width: 950px;
-	height: 80%;
+	/*height: 80%;*/
 }
 #mapsearchModal .modal-dialog{
 	width: 950px;
-	height: 80%;
+	/*height: 80%;*/
 }
 
 @media screen and (min-width: 37.5em) {
@@ -1415,7 +1415,7 @@ color: #fff;
 	padding:0;
 }
 #map_wrapper {
-    height: 400px;
+    /*height: 400px;*/
 }
 
 #map_canvas {
@@ -1470,6 +1470,171 @@ body .navbar-inverse .navbar-nav>.active>a, body .navbar-inverse .navbar-nav>.ac
 }
 
 
+/*****************************************************************************
+	Default Page
+******************************************************************************/
+
+
+.page .entry-title{
+	color: #fff;
+	font-size: 27px;
+	line-height: 30px;
+}
+.page .banner-list{
+	bottom: 10px;
+}
+.mainPageContainer .entry-content{
+	background: #fff;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	color: #000000;
+	font-weight: 300;
+	line-height: 20px;
+}
+.mainPageContainer .pageContent{
+	padding: 30px 40px;
+}
+.mainPageContainer .pageContent h2, .mainPageContainer .pageContent h3, .mainPageContainer .pageContent h4{
+	color: #0097d6;
+	margin: 30px 0px;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif !important;
+}
+.mainPageContainer .pageContent h2 span{
+	display: block;
+	color: #000;
+	font-size: 13px;
+	line-height: 20px;
+	font-weight: 300;
+	text-transform: none;
+	margin-bottom: 10px;
+}
+.mainPageContainer #footer-gallery-heading h2{
+	margin-top: 30px;
+}
+.mainPageContainer .pageContent h2{
+	font-size: 30px;
+	line-height: 35px;
+	font-weight: 700;
+}
+.mainPageContainer .pageContent h3{
+	font-size: 24px;
+	line-height: 30px;
+	font-weight: 700;
+}
+ .mainPageContainer .pageContent h4{
+ 	font-size: 24px;
+ 	line-height: 30px;
+ 	font-weight: 400;
+ }
+ .mainPageContainer .pageContent p{
+ 	margin-bottom: 25px;
+ }
+ .mainPageContainer .pageContent ol, .mainPageContainer .pageContent ul{
+ 	padding: 0;
+    margin-left: 15px;
+    margin-bottom: 20px;
+ }
+ .blue-background{
+ 	text-align: center;
+    background-color: #0097d6;
+    color: #fff;
+    padding: 14px;
+    border-radius: 5px;
+ }
+ .mainPageContainer .pageContent h4.blue-background{
+ 	color: #fff;
+ 	font-weight: 300;
+ }
+
+.faqPageContainer .question .qes{
+	color: #00a2db;
+}
+.faqPageContainer .faq{
+	margin-bottom: 30px;
+}
+.faqPageContainer .question{
+	font-weight: 600;
+}
+
+.contactSection .contactForm  .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file])
+
+{
+	width: 100%;
+	border-color: #A0A0A0;
+    border-radius: 0;
+    padding: 10px 15px;
+}
+
+.contactSection .contactForm  .gform_wrapper textarea{
+	border-color: #A0A0A0;
+    border-radius: 0;
+}
+.contactSection .contactForm .gform_wrapper label.gfield_label{
+	font-weight: 400;
+}
+
+.contactSection .contactForm .gform_wrapper .gform_footer{
+	text-align: center;
+}
+
+.contactSection .contactForm .gform_wrapper .gform_footer input.button, .gform_wrapper .gform_footer input[type=submit], 
+.contactSection .contactForm .gform_wrapper .gform_page_footer input.button, .gform_wrapper .gform_page_footer input[type=submit],
+.contactSection .btn
+{
+	background-color: #00A2DB;
+	color: #fff;
+	font-size: 14px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	border-color: transparent;
+}
+.contactSection .btn{
+	display: inline-block;
+	margin-top: 60px;
+}
+body .contactSection .gform_wrapper ul li.gfield:first-child{margin-top: 0;}
+.contactSection .gform_wrapper{margin-top: 0;}
+.contactSection .btn:hover, .contactSection .btn:focus, .contactSection .btn:active{
+	color: #fff;
+}
+.mainPageContainer .pageContent .contactSection .sidebar h3{
+	font-family: 'Pacifico', cursive !important;
+	font-size: 25px;
+	text-transform: none;
+	color: #00a2db;
+	font-weight: normal;
+}
+
+.contactSection .sidebar{
+	color: #00a2db;
+	font-size: 18px;
+	line-height: 28px;
+	font-weight: 400;
+}
+.contactSectionFooter a, .contactSectionFooter{
+	font-size: 18px;
+	color: #000;
+	font-weight: 400;
+}
+.contactSectionFooter{
+	margin: 60px 0px 20px;
+}
+
+.registrationWrapper .gform_wrapper{
+	display: block !important;
+}
+.registrationWrapper form label{
+	display: block;
+}
+.registrationWrapper #login input[type="text"], .registrationWrapper #login input[type="password"], .registrationWrapper #login input[type="email"]{
+	width: 100%;
+}
+/*****************************************************************************
+	Media Queries
+******************************************************************************/
 
 @media (min-width: 992px){
 	#prop_slider .slider_right .banner-right img{

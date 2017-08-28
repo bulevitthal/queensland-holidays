@@ -34,12 +34,25 @@
 						'after'  => '</div>',
 					) );
 				?>
+				<?php $faqs = get_field('faqs');
+					if($faqs)	{?>
+					<div class="faqPageContainer">
+					<?php 
+						foreach ($faqs as $faq) { ?>
+							<div class="faq">
+								<div class="question"><span class="qes">Q: </span><?php echo $faq['question']; ?></div>
+								<div class="answer"><span class="ans">A:  </span><?php echo $faq['answer']; ?></div>
+							</div>
+						<?php }
+					?>
+					</div>
+				<?php }
+				?>
+				
 			</div>
 		</div><!-- .entry-content -->
 
 		<?php gallerySectionWrapper(); ?>
-		
-		
 		
 	</article><!-- #post-## -->
 </div>
