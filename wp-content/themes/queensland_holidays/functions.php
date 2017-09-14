@@ -98,6 +98,17 @@ function queensland_holidays_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+
+	register_sidebar( array(
+		'name'          => esc_html__( 'Login Sidebar', 'queensland_holidays' ),
+		'id'            => 'login-sidebar',
+		'description'   => esc_html__( 'Add widgets here.', 'queensland_holidays' ),
+		'before_widget' => '',
+		'after_widget'  => '',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+
 	register_sidebar( array(
 		'name'          => esc_html__( 'Footer Sidebar', 'queensland_holidays' ),
 		'id'            => 'footer-sidebar',
@@ -110,6 +121,7 @@ function queensland_holidays_widgets_init() {
 }
 add_action( 'widgets_init', 'queensland_holidays_widgets_init' );
 
+add_filter('show_admin_bar', '__return_false');
 /**
  * Enqueue scripts and styles.
  */

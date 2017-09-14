@@ -27,7 +27,7 @@
 			<div class="pageContent">
 				<h2 class="text-center"><?php the_field('page_heading'); ?></h2>
 				<?php
-					//the_content();
+					the_content();
 					the_field('content');
 					wp_link_pages( array(
 						'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'queensland_holidays' ),

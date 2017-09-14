@@ -27,7 +27,8 @@
 			<div class="pageContent">
 				<h2 class="text-center"><?php the_field('page_heading'); ?></h2>
 				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+					<div class="col-sm-10 col-sm-offset-1">
+						<?php the_content(); ?>
 						<div class="registrationWrapper">
 							<ul class="nav nav-tabs" role="tablist">
 							    <li role="presentation" class="active"><a href="#login" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
@@ -38,28 +39,12 @@
 							  <div class="tab-content">
 							    <div role="tabpanel" class="tab-pane active" id="login">
 							    	<?php 
-							    		$args = array(
-											'echo'           => true,
-											'remember'       => true,
-											'redirect'       => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
-											'form_id'        => 'loginform',
-											'id_username'    => 'user_login',
-											'id_password'    => 'user_pass',
-											'id_remember'    => 'rememberme',
-											'id_submit'      => 'wp-submit',
-											'label_username' => __( 'User Name: ' ),
-											'label_password' => __( 'Password: ' ),
-											'label_remember' => __( 'Remember Me' ),
-											'label_log_in'   => __( 'Log In' ),
-											'value_username' => '',
-											'value_remember' => false
-										);
-
-										wp_login_form($args);
+							    		//echo do_shortcode('[theme-my-login]');
+							    	dynamic_sidebar('login-sidebar');
 							    	 ?>
 							    </div>
 							    <div role="tabpanel" class="tab-pane" id="signup">
-							    	<?php echo do_shortcode('[gravityform id="1" title="false" description="false"]'); ?>
+							    	<?php echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="false"]'); ?>
 							    </div>
 							   </div>
 						</div>

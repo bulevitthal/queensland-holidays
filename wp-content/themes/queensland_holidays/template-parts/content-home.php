@@ -92,7 +92,7 @@
 			if ( $the_query->have_posts() ) {
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post(); ?>
-					<div class="col-md-3 featured-property">
+					<div class="col-md-3 col-sm-3 featured-property">
 						<div class='property_img'>
 							<?php the_post_thumbnail('property_thumbnail'); ?>
 						</div>
@@ -150,7 +150,7 @@
 		</div>
 		<div class="col-md-10 col-md-offset-1">
 			<div class="row" id="featured-section">
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="feature-section">
 						<img src="<?php echo of_get_option('feature-image-1'); ?>" alt="feature 1">
 						<div class="feature-inner">
@@ -168,7 +168,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="feature-section">
 						<img src="<?php echo of_get_option('feature-image-2'); ?>" alt="feature 2">
 						<div class="feature-inner">
@@ -186,7 +186,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="feature-section">
 						<img src="<?php echo of_get_option('feature-image-3'); ?>" alt="feature 3">
 						<div class="feature-inner">
@@ -206,13 +206,13 @@
 				</div>
 			</div>
 			<div class="row" id="sun-flag">
-				<div class="col-md-3" id="sun-logo">
+				<div class="col-md-3 col-sm-3" id="sun-logo">
 					<img src="<?php echo of_get_option('sun_logo'); ?>" alt='sun' />
 				</div>
-				<div class="col-md-6" id="web_url">
+				<div class="col-md-6 col-sm-6" id="web_url">
 					<h3><?php echo of_get_option('web_url'); ?></h3>
 				</div>
-				<div class="col-md-3" id="aus_flag">
+				<div class="col-md-3 col-sm-3" id="aus_flag">
 					<img src="<?php echo of_get_option('aus_flag'); ?>" alt='flag' />
 				</div>
 			</div>

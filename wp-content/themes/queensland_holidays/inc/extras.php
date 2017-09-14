@@ -111,13 +111,13 @@ function gallerySectionWrapper(){
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="row" id="sun-flag">
-				<div class="col-md-3" id="sun-logo">
+				<div class="col-md-3 col-sm-3" id="sun-logo">
 					<img src="<?php echo of_get_option('sun_logo'); ?>" alt='sun' />
 				</div>
-				<div class="col-md-7" id="web_url">
+				<div class="col-md-6 col-sm-6" id="web_url">
 					<h3><?php echo of_get_option('web_url'); ?></h3>
 				</div>
-				<div class="col-md-2" id="aus_flag">
+				<div class="col-md-3 col-sm-3" id="aus_flag">
 					<img src="<?php echo of_get_option('aus_flag'); ?>" alt='flag' />
 				</div>
 			</div>
@@ -126,7 +126,7 @@ function gallerySectionWrapper(){
 
 				<?php foreach ($galleryArray as $id) { ?>
 					<div class="foot-gal-img">
-				    	<a href="<?php echo wp_get_attachment_thumb_url( $id ); ?>" rel="prettyPhoto[gallery]"><img src="<?php echo wp_get_attachment_thumb_url( $id ); ?>"></a>
+				    	<img src="<?php echo wp_get_attachment_thumb_url( $id ); ?>">
 				    </div>	
 
 				<?php } ?>

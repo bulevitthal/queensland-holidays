@@ -63,14 +63,14 @@
 		</div>
 	</div>
 	<div class="row" id="map-search">
-		<div class="col-md-7">
+		<div class="col-md-7 col-sm-7">
 			<form action="#" method="post">
 				<input type="search" name="sname" placeholder="Enter Suburb or Post Code" />
 				<input type="checkbox" name="scheck" value="surround"> <label for="scheck">Surrounding Suburbs</label>
 				<a class="map-button"> Search </a> 
 			</form>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-5 col-sm-5">
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#mapModal">View Map</button>
 		</div>
 	</div>
@@ -169,13 +169,13 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="row" id="sun-flag">
-				<div class="col-md-3" id="sun-logo">
+				<div class="col-md-3 col-sm-3" id="sun-logo">
 					<img src="<?php echo of_get_option('sun_logo'); ?>" alt='sun' />
 				</div>
-				<div class="col-md-6" id="web_url">
+				<div class="col-md-6 col-sm-6" id="web_url">
 					<h3><?php echo of_get_option('web_url'); ?></h3>
 				</div>
-				<div class="col-md-3" id="aus_flag">
+				<div class="col-md-3 col-sm-3" id="aus_flag">
 					<img src="<?php echo of_get_option('aus_flag'); ?>" alt='flag' />
 				</div>
 			</div>

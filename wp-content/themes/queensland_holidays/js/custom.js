@@ -1,9 +1,8 @@
-jQuery( document ).ready(function() {
+$( document ).ready(function() {
     $('.carousel').carousel({
 	  interval: 10000
 	});
- console.log(true);
-    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    //$("a[rel^='prettyPhoto']").prettyPhoto();
 });
 $(document).ready(function(){
 

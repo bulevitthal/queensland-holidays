@@ -32,9 +32,13 @@
 	<header id="masthead" class="site-header" role="banner">
 		<div class="row">
 			<div class="col-md-12" id="header-top">
-				<a href="<?php echo of_get_option('login_page_url'); ?>">Advertiser's Log In & Sign Up</a>
+				<?php if(is_user_logged_in()){ ?>
+				<a href="<?php echo site_url(); ?>/my-account/">My Account</a>    <a href="<?php echo wp_logout_url( home_url() ); ?>">Logout</a>
+				<?php }else{ ?>
+				<a href="<?php echo get_page_link(of_get_option('login_page_url')); ?>">Advertiser's Log In & Sign Up</a>
+				<?php } ?>
 			</div>
-			<div class="col-md-6" id="header-social">
+			<div class="col-md-6 clearfix" id="header-social">
 				<ul>
 					<li class="facebook-social"><a href="<?php echo of_get_option('facebook_url'); ?>"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
 					<li class="twitter-social"><a href="<?php echo of_get_option('twitter_url'); ?>"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
